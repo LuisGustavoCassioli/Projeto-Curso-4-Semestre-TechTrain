@@ -1,4 +1,69 @@
-<!DOCTYPE html>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <span class="material-symbols-outlined filled text-primary me-2">school</span>TECHTRAIN
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <!-- ... existing code ... -->
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">
+                        <span class="material-symbols-outlined filled me-1">person_add</span>Registrar
+                    </a>
+                </li>
+                <!-- Added buttons -->
+                <li class="nav-item">
+                    <a href="cursos.html" class="btn btn-primary btn-lg me-2">
+                        <span class="material-symbols-outlined filled me-2">search</span>Explorar Cursos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contato.html" class="btn btn-outline-light btn-lg me-2">
+                        <span class="material-symbols-outlined filled me-2">email</span>Fale Conosco
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="register.html" class="btn btn-light btn-lg">
+                        <span class="material-symbols-outlined filled me-2">person_add</span>Criar Conta
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ... existing code ... -->
+
+<!-- Custom CSS -->
+<style>
+    /* ... existing css ... */
+
+    .navbar .nav-item .btn {
+        margin-left: 10px; /* Add some space between items */
+    }
+
+    .navbar .nav-item .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .navbar .nav-item .btn-outline-light {
+        color: var(--dark-text);
+        border-color: var(--light-text);
+    }
+
+    .navbar .nav-item .btn-light {
+        background-color: var(--light-bg);
+        color: var(--dark-text);
+    }
+</style><!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -189,6 +254,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="register.html">
+                            <span class="material-symbols-outlined filled me-1">person_add</span>Registrar
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link btn btn-primary text-white ms-lg-3" href="cursos.html">
                             <span class="material-symbols-outlined filled me-1">play_circle</span>Comece Agora
                         </a>
@@ -209,8 +279,11 @@
                         <a href="cursos.html" class="btn btn-primary btn-lg me-2">
                             <span class="material-symbols-outlined filled me-2">search</span>Explorar Cursos
                         </a>
-                        <a href="contato.html" class="btn btn-outline-light btn-lg">
+                        <a href="contato.html" class="btn btn-outline-light btn-lg me-2">
                             <span class="material-symbols-outlined filled me-2">email</span>Fale Conosco
+                        </a>
+                        <a href="register.html" class="btn btn-light btn-lg">
+                            <span class="material-symbols-outlined filled me-2">person_add</span>Criar Conta
                         </a>
                     </div>
                 </div>

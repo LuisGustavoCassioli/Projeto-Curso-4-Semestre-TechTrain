@@ -144,8 +144,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="logoutLink">
-                            <span class="material-symbols-outlined filled me-1">logout</span>Sair
+                        <a class="nav-link" href="register.html">
+                            <span class="material-symbols-outlined filled me-1">person_add</span>Registrar
                         </a>
                     </li>
                     <li class="nav-item">
@@ -403,8 +403,17 @@
                 if (profileForm) {
                     profileForm.addEventListener('submit', function(e) {
                         e.preventDefault();
-                        // In a real implementation, this would update the user profile
-                        alert('Perfil atualizado com sucesso!');
+                        const nome = document.getElementById('nome').value;
+                        const email = document.getElementById('email').value;
+                        
+                        if (dataManager.updateProfile(nome, email)) {
+                            alert('Perfil atualizado com sucesso!');
+                            // Update displayed user info
+                            document.getElementById('userName').textContent = nome;
+                            document.getElementById('userEmail').textContent = email;
+                        } else {
+                            alert('Erro ao atualizar o perfil. Por favor, tente novamente.');
+                        }
                     });
                 }
                 
@@ -413,9 +422,22 @@
                 if (passwordForm) {
                     passwordForm.addEventListener('submit', function(e) {
                         e.preventDefault();
-                        // In a real implementation, this would update the user password
-                        alert('Senha alterada com sucesso!');
-                        passwordForm.reset();
+                        const senhaAtual = document.getElementById('senha_atual').value;
+                        const novaSenha = document.getElementById('nova_senha').value;
+                        const confirmarSenha = document.getElementById('confirmar_senha').value;
+                        
+                        // Simple validation
+                        if (novaSenha !== confirmarSenha) {
+                            alert('As senhas não coincidem!');
+                            return;
+                        }
+                        
+                        if (dataManager.updatePassword(senhaAtual, novaSenha)) {
+                            alert('Senha alterada com sucesso!');
+                            passwordForm.reset();
+                        } else {
+                            alert('Senha atual incorreta. Por favor, tente novamente.');
+                        }
                     });
                 }
             });

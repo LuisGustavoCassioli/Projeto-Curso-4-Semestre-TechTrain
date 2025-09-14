@@ -134,6 +134,11 @@ class DataManager {
     return true;
   }
 
+  // Get user by ID
+  getUserById(id) {
+    return this.users.find(user => user.id === id);
+  }
+
   // Add course to cart
   addToCart(courseId) {
     if (!this.isLoggedIn()) return false;
@@ -228,6 +233,49 @@ class DataManager {
     // Save to localStorage
     localStorage.setItem('techtrainMessages', JSON.stringify(this.messages));
     
+    return true;
+  }
+
+  // Update user profile
+  updateProfile(nome, email) {
+    if (!this.isLoggedIn()) return false;
+
+    // Find the current user in the users array
+    const userIndex = this.users.findIndex(u => u.id === this.currentUser.id);
+    if (userIndex === -1) return false;
+
+    // Update user data
+    this.users[userIndex].nome = nome;
+    this.users[userIndex].email = email;
+
+    // Update current user object
+    this.currentUser.nome = nome;
+    this.currentUser.email = email;
+
+    // Save to localStorage
+    localStorage.setItem('techtrainUsers', JSON.stringify(this.users));
+    localStorage.setItem('techtrainUser', JSON.stringify(this.currentUser));
+
+    return true;
+  }
+
+  // Update user password
+  updatePassword(currentPassword, newPassword) {
+    if (!this.isLoggedIn()) return false;
+
+    // Find the current user in the users array
+    const user = this.users.find(u => u.id === this.currentUser.id);
+    if (!user) return false;
+
+    // Check if current password matches
+    if (user.senha !== currentPassword) return false;
+
+    // Update password
+    user.senha = newPassword;
+
+    // Save to localStorage
+    localStorage.setItem('techtrainUsers', JSON.stringify(this.users));
+
     return true;
   }
 }
