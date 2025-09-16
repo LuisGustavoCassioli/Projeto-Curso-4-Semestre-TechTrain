@@ -152,9 +152,6 @@ function loadCourses(courses) {
                         <a href="course.html?id=${course.id}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium transition duration-300 mr-2">
                             View Details
                         </a>
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300" onclick="addToCart(${course.id})">
-                            Add to Cart
-                        </button>
                     </div>
                 </div>
             </div>
@@ -192,37 +189,6 @@ function filterCourses() {
     });
     
     loadCourses(filteredCourses);
-}
-
-// Function to add course to cart
-function addToCart(courseId) {
-    // Get existing cart from localStorage or initialize empty array
-    let cart = JSON.parse(localStorage.getItem('techtrain_cart')) || [];
-    
-    // Find the course in our data
-    const course = coursesData.find(c => c.id == courseId);
-    
-    // Check if course is already in cart
-    const existingItem = cart.find(item => item.id == courseId);
-    
-    if (!existingItem && course) {
-        // Add course to cart
-        cart.push({
-            id: course.id,
-            title: course.title,
-            price: course.price,
-            image: course.image
-        });
-        
-        // Save updated cart to localStorage
-        localStorage.setItem('techtrain_cart', JSON.stringify(cart));
-        
-        // Show success message
-        showNotification('Course added to cart successfully!', 'success');
-    } else if (existingItem) {
-        // Show info message
-        showNotification('Course is already in your cart', 'info');
-    }
 }
 
 // Function to show notification

@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Load enrolled courses
         loadEnrolledCourses();
+        
+        // Load certificates
+        loadCertificates();
     }
 });
 
@@ -180,19 +183,16 @@ function loadEnrolledCourses() {
         {
             id: 1,
             title: "Complete JavaScript Course",
-            progress: 75,
             image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
         },
         {
             id: 2,
             title: "Python for Data Science",
-            progress: 40,
             image: "https://images.unsplash.com/photo-1555066932-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
         },
         {
             id: 5,
             title: "React Frontend Development",
-            progress: 20,
             image: "https://images.unsplash.com/photo-1555066935-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
         }
     ];
@@ -202,7 +202,26 @@ function loadEnrolledCourses() {
     
     coursesContainer.innerHTML = '';
     
+    // Load course progress data
+    const courseProgressData = JSON.parse(localStorage.getItem('techtrain_course_progress')) || {};
+    
     enrolledCourses.forEach(course => {
+        // Get progress data for this course
+        const progressData = courseProgressData[course.id];
+        let progress = 0;
+        let isCompleted = false;
+        
+        if (progressData) {
+            // Calculate video progress
+            const totalVideos = 5; // We know each course has 5 videos
+            const completedVideos = progressData.completedVideos ? progressData.completedVideos.length : 0;
+            const videoProgress = totalVideos > 0 ? Math.round((completedVideos / totalVideos) * 100) : 0;
+            
+            // If test is taken, use test score, otherwise use video progress
+            progress = progressData.testScore !== null ? progressData.testScore : videoProgress;
+            isCompleted = progressData.completedDate !== null;
+        }
+        
         const courseCard = document.createElement('div');
         courseCard.className = 'bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm';
         
@@ -213,20 +232,96 @@ function loadEnrolledCourses() {
                 <div class="mb-2">
                     <div class="flex justify-between text-sm text-gray-600 mb-1">
                         <span>Progress</span>
-                        <span>${course.progress}%</span>
+                        <span>${progress}%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-2">
-                        <div class="bg-blue-600 h-2 rounded-full" style="width: ${course.progress}%"></div>
+                        <div class="bg-blue-600 h-2 rounded-full" style="width: ${progress}%"></div>
                     </div>
                 </div>
-                <a href="course.html?id=${course.id}" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
-                    Continue Learning <i class="fas fa-arrow-right ml-1"></i>
+                ${isCompleted ? 
+                    '<div class="flex items-center text-green-600 text-sm mb-2"><i class="fas fa-certificate mr-1"></i> Completed</div>' : 
+                    ''
+                }
+                <a href="learning.html?courseId=${course.id}" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    ${isCompleted ? 'Review Course' : 'Continue Learning'} <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
         `;
         
         coursesContainer.appendChild(courseCard);
     });
+}
+
+// Function to load certificates
+function loadCertificates() {
+    // Sample enrolled courses data
+    const enrolledCourses = [
+        {
+            id: 1,
+            title: "Complete JavaScript Course",
+            image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        },
+        {
+            id: 2,
+            title: "Python for Data Science",
+            image: "https://images.unsplash.com/photo-1555066932-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        },
+        {
+            id: 5,
+            title: "React Frontend Development",
+            image: "https://images.unsplash.com/photo-1555066935-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        }
+    ];
+    
+    const certificatesContainer = document.getElementById('certificates-container');
+    if (!certificatesContainer) return;
+    
+    certificatesContainer.innerHTML = '';
+    
+    // Load course progress data
+    const courseProgressData = JSON.parse(localStorage.getItem('techtrain_course_progress')) || {};
+    
+    let hasCertificates = false;
+    
+    enrolledCourses.forEach(course => {
+        // Get progress data for this course
+        const progressData = courseProgressData[course.id];
+        
+        // Check if course is completed
+        if (progressData && progressData.completedDate) {
+            hasCertificates = true;
+            
+            const certificateCard = document.createElement('div');
+            certificateCard.className = 'bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm';
+            
+            certificateCard.innerHTML = `
+                <div class="p-4">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-certificate text-purple-600 text-2xl mr-3"></i>
+                        <h3 class="font-bold text-lg">${course.title}</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">Score: ${progressData.testScore}%</p>
+                    <p class="text-gray-600 text-sm mb-3">Completed: ${new Date(progressData.completedDate).toLocaleDateString()}</p>
+                    <a href="learning.html?courseId=${course.id}" class="text-purple-600 hover:text-purple-800 font-medium text-sm">
+                        View Certificate <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            `;
+            
+            certificatesContainer.appendChild(certificateCard);
+        }
+    });
+    
+    // If no certificates, show a message
+    if (!hasCertificates) {
+        certificatesContainer.innerHTML = `
+            <div class="col-span-full text-center py-8">
+                <i class="fas fa-certificate text-gray-300 text-4xl mb-3"></i>
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">No certificates yet</h3>
+                <p class="text-gray-500">Complete courses and pass tests to earn certificates</p>
+            </div>
+        `;
+    }
 }
 
 // Function to simulate login (for demo purposes)

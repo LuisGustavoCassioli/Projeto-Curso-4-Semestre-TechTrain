@@ -109,7 +109,7 @@ const courseLevel = document.getElementById('course-level');
 const courseDescription = document.getElementById('course-description');
 const courseLearningPoints = document.getElementById('course-learning-points');
 const coursePrice = document.getElementById('course-price');
-const addToCartBtn = document.getElementById('add-to-cart-btn');
+const enrollBtn = document.getElementById('enroll-btn');
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Add to cart button event listener
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', function() {
-            addToCart(courseId);
+    if (enrollBtn) {
+        enrollBtn.addEventListener('click', function() {
+            enrollInCourse(courseId);
         });
     }
 });
@@ -172,35 +172,18 @@ function loadCourseDetails(course) {
     }
 }
 
-// Function to add course to cart
-function addToCart(courseId) {
-    // Get existing cart from localStorage or initialize empty array
-    let cart = JSON.parse(localStorage.getItem('techtrain_cart')) || [];
-    
-    // Get course data
-    const course = courseData[courseId];
-    
-    // Check if course is already in cart
-    const existingItem = cart.find(item => item.id == courseId);
-    
-    if (!existingItem && course) {
-        // Add course to cart
-        cart.push({
-            id: course.id,
-            title: course.title,
-            price: course.price,
-            image: course.image
-        });
-        
-        // Save updated cart to localStorage
-        localStorage.setItem('techtrain_cart', JSON.stringify(cart));
-        
-        // Show success message
-        showNotification('Course added to cart successfully!', 'success');
-    } else if (existingItem) {
-        // Show info message
-        showNotification('Course is already in your cart', 'info');
+// Function to enroll in course
+function enrollInCourse(courseId) {
+    // Check if user is logged in
+    const currentUser = JSON.parse(localStorage.getItem('techtrain_user'));
+    if (!currentUser) {
+        // Redirect to login page if not logged in
+        window.location.href = 'login.html';
+        return;
     }
+    
+    // Redirect to learning page
+    window.location.href = `learning.html?courseId=${courseId}`;
 }
 
 // Function to show notification

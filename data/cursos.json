@@ -9,7 +9,69 @@
     "rating": 4.8,
     "reviews": 1240,
     "category": "programming",
-    "level": "Beginner"
+    "level": "Beginner",
+    "learningPoints": [
+      "Master JavaScript fundamentals and advanced concepts",
+      "Build real-world projects with modern JavaScript",
+      "Understand asynchronous programming with Promises and async/await",
+      "Work with APIs and AJAX to create dynamic web applications",
+      "Learn ES6+ features like arrow functions, destructuring, and modules"
+    ],
+    "videos": [
+      {
+        "id": 101,
+        "title": "Introduction to JavaScript",
+        "duration": "15:30",
+        "url": "https://www.youtube.com/embed/hdI2bqOjy3c"
+      },
+      {
+        "id": 102,
+        "title": "Variables and Data Types",
+        "duration": "22:15",
+        "url": "https://www.youtube.com/embed/8bDNZn_CDos"
+      },
+      {
+        "id": 103,
+        "title": "Functions and Scope",
+        "duration": "28:45",
+        "url": "https://www.youtube.com/embed/3GJ2Z5aQ7Jc"
+      },
+      {
+        "id": 104,
+        "title": "Objects and Arrays",
+        "duration": "35:20",
+        "url": "https://www.youtube.com/embed/9M4XKi25I2M"
+      },
+      {
+        "id": 105,
+        "title": "DOM Manipulation",
+        "duration": "42:10",
+        "url": "https://www.youtube.com/embed/0ik6X4DJKCc"
+      }
+    ],
+    "test": {
+      "title": "JavaScript Fundamentals Test",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Which keyword is used to declare a variable in JavaScript?",
+          "options": ["var", "let", "const", "All of the above"],
+          "correctAnswer": 3
+        },
+        {
+          "id": 2,
+          "question": "What does DOM stand for?",
+          "options": ["Document Object Model", "Data Object Management", "Dynamic Object Model", "Document Oriented Model"],
+          "correctAnswer": 0
+        },
+        {
+          "id": 3,
+          "question": "Which method is used to add an element to the end of an array?",
+          "options": ["append()", "push()", "addToEnd()", "insert()"],
+          "correctAnswer": 1
+        }
+      ]
+    }
   },
   {
     "id": 2,
@@ -21,7 +83,69 @@
     "rating": 4.9,
     "reviews": 980,
     "category": "data-science",
-    "level": "Intermediate"
+    "level": "Intermediate",
+    "learningPoints": [
+      "Master Python programming for data science",
+      "Manipulate and analyze data with Pandas",
+      "Create stunning visualizations with Matplotlib and Seaborn",
+      "Build machine learning models with Scikit-learn",
+      "Work with real-world datasets and solve business problems"
+    ],
+    "videos": [
+      {
+        "id": 201,
+        "title": "Python Basics for Data Science",
+        "duration": "18:45",
+        "url": "https://www.youtube.com/embed/rfscVS0vtbw"
+      },
+      {
+        "id": 202,
+        "title": "NumPy Arrays and Operations",
+        "duration": "25:30",
+        "url": "https://www.youtube.com/embed/GB9ByFAIAH4"
+      },
+      {
+        "id": 203,
+        "title": "Pandas DataFrames",
+        "duration": "32:15",
+        "url": "https://www.youtube.com/embed/ZyhVh-qRZPA"
+      },
+      {
+        "id": 204,
+        "title": "Data Visualization with Matplotlib",
+        "duration": "29:40",
+        "url": "https://www.youtube.com/embed/UmX4kyB2wGg"
+      },
+      {
+        "id": 205,
+        "title": "Introduction to Scikit-learn",
+        "duration": "38:20",
+        "url": "https://www.youtube.com/embed/pqNCD_5r0IU"
+      }
+    ],
+    "test": {
+      "title": "Python Data Science Test",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Which library is primarily used for data manipulation in Python?",
+          "options": ["NumPy", "Matplotlib", "Pandas", "Seaborn"],
+          "correctAnswer": 2
+        },
+        {
+          "id": 2,
+          "question": "What is the primary data structure in Pandas?",
+          "options": ["Array", "DataFrame", "List", "Dictionary"],
+          "correctAnswer": 1
+        },
+        {
+          "id": 3,
+          "question": "Which library is used for machine learning in Python?",
+          "options": ["TensorFlow", "Scikit-learn", "Keras", "PyTorch"],
+          "correctAnswer": 1
+        }
+      ]
+    }
   },
   {
     "id": 3,
@@ -33,7 +157,69 @@
     "rating": 4.7,
     "reviews": 760,
     "category": "cybersecurity",
-    "level": "Beginner"
+    "level": "Beginner",
+    "learningPoints": [
+      "Understand fundamental cybersecurity concepts and principles",
+      "Identify and mitigate common security threats",
+      "Implement network security measures and firewalls",
+      "Use encryption techniques to protect sensitive data",
+      "Conduct security assessments and vulnerability scanning"
+    ],
+    "videos": [
+      {
+        "id": 301,
+        "title": "Introduction to Cybersecurity",
+        "duration": "20:15",
+        "url": "https://www.youtube.com/embed/fNz_c6UiK8I"
+      },
+      {
+        "id": 302,
+        "title": "Common Cyber Threats",
+        "duration": "27:30",
+        "url": "https://www.youtube.com/embed/sIEv8nT4g4o"
+      },
+      {
+        "id": 303,
+        "title": "Network Security Basics",
+        "duration": "33:45",
+        "url": "https://www.youtube.com/embed/5A37i5wRS90"
+      },
+      {
+        "id": 304,
+        "title": "Encryption Fundamentals",
+        "duration": "24:20",
+        "url": "https://www.youtube.com/embed/68Pqir_moqA"
+      },
+      {
+        "id": 305,
+        "title": "Firewalls and Intrusion Detection",
+        "duration": "31:10",
+        "url": "https://www.youtube.com/embed/8B5MFsRVTpE"
+      }
+    ],
+    "test": {
+      "title": "Cybersecurity Fundamentals Test",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What does CIA triad stand for in cybersecurity?",
+          "options": ["Central Intelligence Agency", "Confidentiality, Integrity, Availability", "Computer Incident Analysis", "Cyber Intelligence Assessment"],
+          "correctAnswer": 1
+        },
+        {
+          "id": 2,
+          "question": "Which of the following is NOT a common cyber threat?",
+          "options": ["Phishing", "Ransomware", "Firewall", "Malware"],
+          "correctAnswer": 2
+        },
+        {
+          "id": 3,
+          "question": "What is the primary purpose of a firewall?",
+          "options": ["Encrypt data", "Detect malware", "Monitor network traffic", "Control network access"],
+          "correctAnswer": 3
+        }
+      ]
+    }
   },
   {
     "id": 4,
@@ -45,7 +231,69 @@
     "rating": 4.9,
     "reviews": 650,
     "category": "design",
-    "level": "Intermediate"
+    "level": "Intermediate",
+    "learningPoints": [
+      "Master UI/UX design principles and best practices",
+      "Conduct user research and create user personas",
+      "Design wireframes and interactive prototypes",
+      "Create visually appealing interfaces with Figma",
+      "Build a professional design portfolio"
+    ],
+    "videos": [
+      {
+        "id": 401,
+        "title": "Introduction to UI/UX Design",
+        "duration": "19:30",
+        "url": "https://www.youtube.com/embed/XDZi_jr6ZJc"
+      },
+      {
+        "id": 402,
+        "title": "User Research and Personas",
+        "duration": "26:45",
+        "url": "https://www.youtube.com/embed/VkX4ISo-BZY"
+      },
+      {
+        "id": 403,
+        "title": "Wireframing and Prototyping",
+        "duration": "34:20",
+        "url": "https://www.youtube.com/embed/9M4XKi25I2M"
+      },
+      {
+        "id": 404,
+        "title": "Visual Design Principles",
+        "duration": "28:15",
+        "url": "https://www.youtube.com/embed/0ik6X4DJKCc"
+      },
+      {
+        "id": 405,
+        "title": "Design Systems and Figma",
+        "duration": "41:30",
+        "url": "https://www.youtube.com/embed/hdI2bqOjy3c"
+      }
+    ],
+    "test": {
+      "title": "UI/UX Design Test",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What does UX stand for?",
+          "options": ["User Experience", "User Execution", "User Extension", "User Expertise"],
+          "correctAnswer": 0
+        },
+        {
+          "id": 2,
+          "question": "Which tool is commonly used for UI/UX design?",
+          "options": ["Photoshop", "Figma", "Illustrator", "All of the above"],
+          "correctAnswer": 3
+        },
+        {
+          "id": 3,
+          "question": "What is a user persona?",
+          "options": ["A real user of the product", "A fictional representation of a user group", "A user testing method", "A design pattern"],
+          "correctAnswer": 1
+        }
+      ]
+    }
   },
   {
     "id": 5,
@@ -57,7 +305,69 @@
     "rating": 4.8,
     "reviews": 1120,
     "category": "programming",
-    "level": "Intermediate"
+    "level": "Intermediate",
+    "learningPoints": [
+      "Build modern web applications with React",
+      "Manage application state with Redux and Context API",
+      "Implement routing with React Router",
+      "Create reusable and scalable components",
+      "Optimize performance and handle side effects"
+    ],
+    "videos": [
+      {
+        "id": 501,
+        "title": "Introduction to React",
+        "duration": "21:45",
+        "url": "https://www.youtube.com/embed/dGcsHMXbSOA"
+      },
+      {
+        "id": 502,
+        "title": "Components and Props",
+        "duration": "29:30",
+        "url": "https://www.youtube.com/embed/FI5A0s4D54A"
+      },
+      {
+        "id": 503,
+        "title": "State and Lifecycle",
+        "duration": "36:15",
+        "url": "https://www.youtube.com/embed/Ke90Tje7VS0"
+      },
+      {
+        "id": 504,
+        "title": "React Hooks",
+        "duration": "33:20",
+        "url": "https://www.youtube.com/embed/cF2lQ_gZeA8"
+      },
+      {
+        "id": 505,
+        "title": "Routing with React Router",
+        "duration": "40:10",
+        "url": "https://www.youtube.com/embed/Ul3y1LXxzdU"
+      }
+    ],
+    "test": {
+      "title": "React Development Test",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is JSX in React?",
+          "options": ["JavaScript XML", "Java Syntax Extension", "JavaScript Extension", "JSON XML"],
+          "correctAnswer": 0
+        },
+        {
+          "id": 2,
+          "question": "Which hook is used for state management in functional components?",
+          "options": ["useEffect", "useState", "useContext", "useReducer"],
+          "correctAnswer": 1
+        },
+        {
+          "id": 3,
+          "question": "What is the purpose of React Router?",
+          "options": ["State management", "Component styling", "Navigation between pages", "API integration"],
+          "correctAnswer": 2
+        }
+      ]
+    }
   },
   {
     "id": 6,
@@ -69,6 +379,68 @@
     "rating": 4.9,
     "reviews": 890,
     "category": "data-science",
-    "level": "Advanced"
+    "level": "Advanced",
+    "learningPoints": [
+      "Dive into machine learning algorithms and build predictive models with Python",
+      "Understand supervised and unsupervised learning techniques",
+      "Work with Scikit-learn for implementing ML algorithms",
+      "Evaluate model performance and avoid overfitting",
+      "Deploy machine learning models in production"
+    ],
+    "videos": [
+      {
+        "id": 601,
+        "title": "Introduction to Machine Learning",
+        "duration": "23:15",
+        "url": "https://www.youtube.com/embed/Gv9_4yMHFhI"
+      },
+      {
+        "id": 602,
+        "title": "Supervised Learning Algorithms",
+        "duration": "31:40",
+        "url": "https://www.youtube.com/embed/RlQuVL6-g1Y"
+      },
+      {
+        "id": 603,
+        "title": "Unsupervised Learning Techniques",
+        "duration": "27:30",
+        "url": "https://www.youtube.com/embed/44jq6ano5n0"
+      },
+      {
+        "id": 604,
+        "title": "Model Evaluation and Validation",
+        "duration": "35:20",
+        "url": "https://www.youtube.com/embed/N2PQVlE3-bg"
+      },
+      {
+        "id": 605,
+        "title": "Deploying ML Models",
+        "duration": "39:15",
+        "url": "https://www.youtube.com/embed/8jzDlL7gaM0"
+      }
+    ],
+    "test": {
+      "title": "Machine Learning Test",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is the main difference between supervised and unsupervised learning?",
+          "options": ["Supervised learning uses labeled data", "Unsupervised learning is faster", "Supervised learning is used for clustering", "There is no difference"],
+          "correctAnswer": 0
+        },
+        {
+          "id": 2,
+          "question": "Which algorithm is commonly used for classification tasks?",
+          "options": ["K-Means", "Linear Regression", "Decision Trees", "PCA"],
+          "correctAnswer": 2
+        },
+        {
+          "id": 3,
+          "question": "What does overfitting mean in machine learning?",
+          "options": ["Model is too simple", "Model performs well on training data but poorly on new data", "Model has too few features", "Model is not trained enough"],
+          "correctAnswer": 1
+        }
+      ]
+    }
   }
 ]
