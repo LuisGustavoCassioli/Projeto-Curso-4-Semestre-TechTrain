@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - TECHTRAIN</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-[Poppins]">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <i class="fas fa-graduation-cap text-blue-600 text-2xl mr-2"></i>
+                <h1 class="text-2xl font-bold text-blue-600">TECHTRAIN</h1>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
+            </nav>
+            
+            <!-- Buttons -->
+            <div class="flex items-center space-x-4">
+                <a href="cart.html" class="text-gray-600 hover:text-blue-600 relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
+                </a>
+                <a href="register.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
+                    Get Started
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 absolute w-full shadow-lg">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
+                <a href="register.html" class="text-gray-600 hover:text-blue-600 font-medium">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout Header -->
+    <section class="pt-32 pb-12 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Checkout</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto">
+                Complete your purchase and start learning today
+            </p>
+        </div>
+    </section>
+
+    <!-- Checkout Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Order Summary -->
+                <div class="lg:w-1/2">
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
+                        
+                        <div id="order-items" class="mb-6">
+                            <!-- Order items will be loaded here -->
+                        </div>
+                        
+                        <div class="border-t border-gray-200 pt-4">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span id="subtotal" class="font-medium">$0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600">Tax</span>
+                                <span id="tax" class="font-medium">$0.00</span>
+                            </div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-600">Discount</span>
+                                <span id="discount" class="font-medium text-green-600">-$0.00</span>
+                            </div>
+                            <div class="flex justify-between mt-4 pt-4 border-t border-gray-200">
+                                <span class="text-lg font-bold">Total</span>
+                                <span id="total" class="text-lg font-bold">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Form -->
+                <div class="lg:w-1/2">
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Payment Details</h2>
+                        
+                        <form id="payment-form">
+                            <div class="mb-6">
+                                <label for="card-name" class="block text-gray-700 font-medium mb-2">Name on Card</label>
+                                <input type="text" id="card-name" name="card-name" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                       placeholder="John Doe" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="card-number" class="block text-gray-700 font-medium mb-2">Card Number</label>
+                                <input type="text" id="card-number" name="card-number" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                       placeholder="1234 5678 9012 3456" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="expiry-date" class="block text-gray-700 font-medium mb-2">Expiry Date</label>
+                                    <input type="text" id="expiry-date" name="expiry-date" 
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                           placeholder="MM/YY" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="cvv" class="block text-gray-700 font-medium mb-2">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" 
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                           placeholder="123" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="billing-address" class="block text-gray-700 font-medium mb-2">Billing Address</label>
+                                <input type="text" id="billing-address" name="billing-address" 
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                       placeholder="123 Main St" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <input type="text" id="city" name="city" 
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                           placeholder="City" required>
+                                </div>
+                                
+                                <div>
+                                    <input type="text" id="zip-code" name="zip-code" 
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                           placeholder="ZIP Code" required>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium text-lg transition duration-300">
+                                Complete Purchase
+                            </button>
+                        </form>
+                        
+                        <!-- Payment Success/Error Messages -->
+                        <div id="payment-message" class="mt-6 hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-graduation-cap text-blue-400 text-2xl mr-2"></i>
+                        <h2 class="text-2xl font-bold">TECHTRAIN</h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Empowering learners with cutting-edge tech skills for the digital future.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="courses.html" class="text-gray-400 hover:text-white">Courses</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="student.html" class="text-gray-400 hover:text-white">Student Area</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Data Science</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cybersecurity</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Design</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>123 Tech Street, San Francisco, CA</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>info@techtrain.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p id="copyright"></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

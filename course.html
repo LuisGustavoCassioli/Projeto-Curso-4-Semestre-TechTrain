@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - TECHTRAIN</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-[Poppins]">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <i class="fas fa-graduation-cap text-blue-600 text-2xl mr-2"></i>
+                <h1 class="text-2xl font-bold text-blue-600">TECHTRAIN</h1>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
+            </nav>
+            
+            <!-- Buttons -->
+            <div class="flex items-center space-x-4">
+                <a href="cart.html" class="text-gray-600 hover:text-blue-600 relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
+                </a>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
+                    Get Started
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 absolute w-full shadow-lg">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Course Details -->
+    <section class="pt-32 pb-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Course Image -->
+                <div class="lg:w-2/3">
+                    <div class="bg-gray-200 rounded-xl overflow-hidden mb-6 h-96 flex items-center justify-center">
+                        <img id="course-image" src="" alt="Course Image" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h1 id="course-title" class="text-3xl font-bold text-gray-800 mb-2"></h1>
+                        <div class="flex items-center mb-4">
+                            <div id="course-rating" class="flex text-yellow-400 mr-4">
+                                <!-- Rating stars will be loaded here -->
+                            </div>
+                            <span id="course-reviews" class="text-gray-600"></span>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span id="course-duration"></span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-layer-group mr-2"></i>
+                                <span id="course-level"></span>
+                            </div>
+                            <div class="flex items-center text-gray-600">
+                                <i class="fas fa-language mr-2"></i>
+                                <span>English</span>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-2xl font-semibold mb-4">Description</h2>
+                        <p id="course-description" class="text-gray-600 mb-8"></p>
+                        
+                        <h2 class="text-2xl font-semibold mb-4">What You'll Learn</h2>
+                        <ul id="course-learning-points" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                            <!-- Learning points will be loaded here -->
+                        </ul>
+                        
+                        <h2 class="text-2xl font-semibold mb-4">Course Content</h2>
+                        <div class="border border-gray-200 rounded-lg mb-8">
+                            <div class="p-4 border-b border-gray-200">
+                                <h3 class="font-semibold">Introduction</h3>
+                            </div>
+                            <div class="p-4 border-b border-gray-200">
+                                <h3 class="font-semibold">Getting Started</h3>
+                            </div>
+                            <div class="p-4 border-b border-gray-200">
+                                <h3 class="font-semibold">Core Concepts</h3>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold">Advanced Topics</h3>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-2xl font-semibold mb-4">Student Reviews</h2>
+                        <div class="space-y-6">
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
+                                         alt="Student" 
+                                         class="w-12 h-12 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-semibold">Michael Johnson</h3>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600">
+                                    This course completely transformed my understanding of the subject. The instructor explains complex topics in a simple and practical way.
+                                </p>
+                            </div>
+                            
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
+                                         alt="Student" 
+                                         class="w-12 h-12 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-semibold">Sarah Williams</h3>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600">
+                                    The projects in this course are challenging and practical. I've already applied what I learned to my job!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Info Sidebar -->
+                <div class="lg:w-1/3">
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg sticky top-32">
+                        <div class="p-6">
+                            <div class="text-3xl font-bold text-gray-800 mb-4" id="course-price"></div>
+                            
+                            <div class="mb-6">
+                                <button id="add-to-cart-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium text-lg transition duration-300 mb-3">
+                                    Add to Cart
+                                </button>
+                                <button class="w-full bg-gray-800 hover:bg-gray-900 text-white py-3 rounded-lg font-medium text-lg transition duration-300">
+                                    Buy Now
+                                </button>
+                            </div>
+                            
+                            <div class="border-t border-gray-200 pt-6">
+                                <h3 class="font-semibold mb-3">This course includes:</h3>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-video mr-2 text-blue-600"></i>
+                                        <span>25 hours of on-demand video</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-file-alt mr-2 text-blue-600"></i>
+                                        <span>15 articles</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-download mr-2 text-blue-600"></i>
+                                        <span>20 downloadable resources</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-certificate mr-2 text-blue-600"></i>
+                                        <span>Certificate of completion</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-mobile-alt mr-2 text-blue-600"></i>
+                                        <span>Access on mobile and TV</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-infinity mr-2 text-blue-600"></i>
+                                        <span>Full lifetime access</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-graduation-cap text-blue-400 text-2xl mr-2"></i>
+                        <h2 class="text-2xl font-bold">TECHTRAIN</h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Empowering learners with cutting-edge tech skills for the digital future.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="courses.html" class="text-gray-400 hover:text-white">Courses</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="student.html" class="text-gray-400 hover:text-white">Student Area</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Data Science</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cybersecurity</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Design</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>123 Tech Street, San Francisco, CA</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>info@techtrain.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p id="copyright"></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/course.js"></script>
+</body>
+</html>

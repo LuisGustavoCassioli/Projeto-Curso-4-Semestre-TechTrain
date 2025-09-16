@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "title": "Complete JavaScript Course",
+    "description": "Master JavaScript from basics to advanced concepts including ES6, async programming, and more. This comprehensive course takes you from a complete beginner to an advanced JavaScript developer.",
+    "duration": "25 hours",
+    "price": 89.99,
+    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "rating": 4.8,
+    "reviews": 1240,
+    "category": "programming",
+    "level": "Beginner"
+  },
+  {
+    "id": 2,
+    "title": "Python for Data Science",
+    "description": "Learn Python programming for data analysis, visualization, and machine learning. This course covers NumPy, Pandas, Matplotlib, and Scikit-learn libraries.",
+    "duration": "30 hours",
+    "price": 99.99,
+    "image": "https://images.unsplash.com/photo-1555066932-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "rating": 4.9,
+    "reviews": 980,
+    "category": "data-science",
+    "level": "Intermediate"
+  },
+  {
+    "id": 3,
+    "title": "Cybersecurity Fundamentals",
+    "description": "Protect networks and systems from cyber threats with this comprehensive course. Learn about network security, encryption, firewalls, and intrusion detection systems.",
+    "duration": "20 hours",
+    "price": 79.99,
+    "image": "https://images.unsplash.com/photo-1555066933-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "rating": 4.7,
+    "reviews": 760,
+    "category": "cybersecurity",
+    "level": "Beginner"
+  },
+  {
+    "id": 4,
+    "title": "UI/UX Design Masterclass",
+    "description": "Learn design principles, user research, and prototyping to create beautiful interfaces. This course covers the entire design process from ideation to implementation.",
+    "duration": "22 hours",
+    "price": 84.99,
+    "image": "https://images.unsplash.com/photo-1555066934-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "rating": 4.9,
+    "reviews": 650,
+    "category": "design",
+    "level": "Intermediate"
+  },
+  {
+    "id": 5,
+    "title": "React Frontend Development",
+    "description": "Build modern web applications with React, Redux, and related libraries. Learn component-based architecture, state management, and routing.",
+    "duration": "28 hours",
+    "price": 94.99,
+    "image": "https://images.unsplash.com/photo-1555066935-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "rating": 4.8,
+    "reviews": 1120,
+    "category": "programming",
+    "level": "Intermediate"
+  },
+  {
+    "id": 6,
+    "title": "Machine Learning with Python",
+    "description": "Dive into machine learning algorithms and build predictive models with Python. This course covers supervised and unsupervised learning techniques.",
+    "duration": "35 hours",
+    "price": 109.99,
+    "image": "https://images.unsplash.com/photo-1555066936-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    "rating": 4.9,
+    "reviews": 890,
+    "category": "data-science",
+    "level": "Advanced"
+  }
+]

@@ -1,69 +1,131 @@
-# TECHTRAIN - Online Course Platform (Tailwind CSS Version)
+# TECHTRAIN - Plataforma de Cursos Online
 
-A complete, professional dynamic website for TECHTRAIN, an online course platform built with HTML, CSS, JS, JSON, Bootstrap, Tailwind CSS, Google Fonts, and Google Fonts Icons.
+Uma plataforma completa, dinâmica e profissional para uma empresa fictícia de cursos online chamada TECHTRAIN, inspirada em grandes plataformas como Udemy, Alura e Coursera.
 
-## 🚀 Technologies Used
+## Recursos
 
-- **HTML5** - Structure and content
-- **CSS3** - Styling and layout
-- **JavaScript** - Interactivity and functionality
-- **JSON** - Data storage
-- **Bootstrap 5** - UI components and responsive grid
-- **Tailwind CSS** - Utility-first CSS framework
-- **Google Fonts** - Typography
-- **Google Fonts Icons** - Iconography
+- **Design Responsivo**: Funciona em desktop, tablet e dispositivos móveis
+- **Interface Moderna**: Design limpo e profissional usando Tailwind CSS
+- **Catálogo de Cursos**: Navegue e pesquise cursos por categoria, preço e palavra-chave
+- **Carrinho de Compras**: Adicione cursos ao carrinho e finalize a compra
+- **Painel do Estudante**: Área de login com acompanhamento do progresso dos cursos
+- **Formulário de Contato**: Envie mensagens com validação
+- **Armazenamento Local**: Armazenamento persistente de dados para carrinho, informações do usuário e mensagens
 
-## 📁 Project Structure
+## Páginas
+
+1. **Página Inicial** (`index.html`)
+   - Cabeçalho fixo com navegação
+   - Seção hero com chamada para ação
+   - Cursos em destaque
+   - Seção Por que escolher a TECHTRAIN
+   - Depoimentos
+   - Rodapé
+
+2. **Página de Cursos** (`courses.html`)
+   - Catálogo completo de cursos
+   - Recursos de pesquisa e filtragem
+   - Cartões de cursos com imagens, descrições e preços
+
+3. **Página de Detalhes do Curso** (`course.html?id=...`)
+   - Informações detalhadas do curso
+   - Currículo do curso
+   - Avaliações de estudantes
+   - Funcionalidade de adicionar ao carrinho
+
+4. **Página de Contato** (`contact.html`)
+   - Formulário de contato com validação
+   - Informações de contato
+   - Visualização do mapa
+
+5. **Área do Estudante** (`student.html`)
+   - Login necessário
+   - Painel com cursos matriculados
+   - Acompanhamento do progresso
+   - Gerenciamento de perfil
+
+6. **Carrinho de Compras** (`cart.html`)
+   - Visualizar cursos adicionados
+   - Remover itens
+   - Funcionalidade de checkout
+
+7. **Página de Login** (`login.html`)
+   - Login do estudante
+   - Credenciais de demonstração fornecidas
+
+## Tecnologias Utilizadas
+
+- **HTML5**
+- **CSS3** com Tailwind CSS
+- **JavaScript** (Vanilla JS)
+- **LocalStorage** para persistência de dados
+- **Google Fonts** (Poppins)
+- **Font Awesome** para ícones
+- **Unsplash** para imagens de alta qualidade
+
+## Estrutura de Arquivos
 
 ```
-techtrain-tailwind/
-├── index.html          # Homepage
-├── cursos.html         # Course listing
-├── curso.html          # Course detail
-├── contato.html        # Contact page
-├── login.html          # Login page
-├── register.html       # Registration page
-├── aluno.html          # Student dashboard
+.
+├── index.html
+├── courses.html
+├── course.html
+├── contact.html
+├── student.html
+├── login.html
+├── cart.html
 ├── css/
-│   └── (embedded in HTML files)
+│   └── style.css
 ├── js/
-│   └── dataManager.js  # Data handling
+│   ├── main.js
+│   ├── courses.js
+│   ├── course.js
+│   ├── contact.js
+│   ├── login.js
+│   └── cart.js
 ├── data/
-│   ├── courses.json    # Course data
-│   ├── users.json      # User data
-│   └── messages.json   # Contact messages
-└── README.md           # This file
+│   └── cursos.json
+└── img/
+    └── (opcional para imagens locais)
 ```
 
-## 🌟 Features
+## Começando
 
-- Responsive design that works on all devices
-- Course browsing and search functionality
-- User authentication (login/register)
-- Shopping cart system
-- Course enrollment
-- Contact form
-- Student dashboard
+1. Clone ou baixe o repositório
+2. Abra `index.html` em um navegador web
+3. Navegue pelo site para explorar todos os recursos
 
-## 🚀 How to Run
+## Credenciais de Demonstração
 
-1. Simply open `index.html` in your browser
-2. No build process required
-3. All dependencies are loaded via CDN
+Para a área do estudante, use as seguintes credenciais:
+- **Email**: student@example.com
+- **Senha**: password123
 
-## 🎯 Default User Account
+## Implementação dos Recursos
 
-For demonstration purposes, you can login with:
-- Email: `joao@example.com`
-- Password: `password123`
+### Carrinho de Compras
+- Adicionar/remover cursos
+- Armazenamento persistente usando LocalStorage
+- Contagem do carrinho em tempo real no cabeçalho
 
-## 📝 Notes
+### Autenticação de Usuário
+- Login/logout simulado
+- Gerenciamento de perfil
+- Persistência de sessão
 
-- This is a client-side only implementation
-- Data is stored in JSON files and localStorage
-- No server-side processing required
-- Perfect for GitHub Pages hosting
+### Gerenciamento de Cursos
+- Dados de cursos baseados em JSON
+- Pesquisa e filtragem
+- Visualizações detalhadas de cursos
 
-## 🤝 Support
+### Formulário de Contato
+- Validação no lado do cliente
+- Armazenamento de mensagens no LocalStorage
 
-For support, contact: contato@techtrain.com.br
+## Implantação
+
+Este projeto está pronto para ser implantado diretamente no GitHub Pages ou em qualquer serviço de hospedagem estática.
+
+## Licença
+
+Este projeto é apenas para fins educacionais.

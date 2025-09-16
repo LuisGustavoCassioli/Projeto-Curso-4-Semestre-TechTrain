@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - TECHTRAIN</title>
+    <title>Shopping Cart - TECHTRAIN</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -13,9 +13,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="font-[Poppins] bg-gray-50">
+<body class="font-[Poppins]">
     <!-- Header -->
-    <header class="bg-white shadow-md">
+    <header class="bg-white shadow-md fixed w-full z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
             <div class="flex items-center">
@@ -23,77 +23,95 @@
                 <h1 class="text-2xl font-bold text-blue-600">TECHTRAIN</h1>
             </div>
             
-            <!-- Navigation -->
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-8">
                 <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
                 <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
                 <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
             </nav>
             
             <!-- Buttons -->
             <div class="flex items-center space-x-4">
-                <a href="cart.html" class="text-gray-600 hover:text-blue-600 relative">
+                <a href="cart.html" class="text-blue-600 hover:text-blue-800 relative">
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
                 </a>
-                <a href="login.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
-                    Login
+                <a href="register.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
+                    Get Started
                 </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 absolute w-full shadow-lg">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
+                <a href="register.html" class="text-gray-600 hover:text-blue-600 font-medium">Register</a>
             </div>
         </div>
     </header>
 
-    <!-- Registration Section -->
-    <section class="py-20">
+    <!-- Cart Header -->
+    <section class="pt-32 pb-12 bg-gradient-to-r from-blue-50 to-indigo-50">
         <div class="container mx-auto px-4">
-            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="p-8">
-                    <div class="text-center mb-8">
-                        <h1 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
-                        <p class="text-gray-600">Sign up to start your learning journey</p>
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-4">Shopping Cart</h1>
+            <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto">
+                Review your selected courses before checkout
+            </p>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Cart Items -->
+                <div class="lg:w-2/3">
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Courses</h2>
+                        
+                        <div id="cart-items">
+                            <!-- Cart items will be loaded here -->
+                        </div>
                     </div>
-                    
-                    <form id="register-form">
-                        <div class="mb-6">
-                            <label for="full-name" class="block text-gray-700 font-medium mb-2">Full Name</label>
-                            <input type="text" id="full-name" name="full-name" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                   placeholder="John Doe" required>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="lg:w-1/3">
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6 sticky top-32">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span class="font-medium" id="cart-subtotal">$0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Tax</span>
+                                <span class="font-medium">$0.00</span>
+                            </div>
+                            <div class="border-t border-gray-200 pt-4 flex justify-between">
+                                <span class="text-lg font-semibold">Total</span>
+                                <span class="text-lg font-bold text-blue-600" id="cart-total">$0.00</span>
+                            </div>
                         </div>
                         
-                        <div class="mb-6">
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
-                            <input type="email" id="email" name="email" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                   placeholder="you@example.com" required>
-                        </div>
+                        <a href="checkout.html" id="checkout-btn" class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium text-lg text-center transition duration-300 mb-4">
+                            Proceed to Checkout
+                        </a>
                         
-                        <div class="mb-6">
-                            <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
-                            <input type="password" id="password" name="password" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                   placeholder="••••••••" required>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label for="confirm-password" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
-                            <input type="password" id="confirm-password" name="confirm-password" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                   placeholder="••••••••" required>
-                        </div>
-                        
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300">
-                            Create Account
-                        </button>
-                    </form>
-                    
-                    <div class="mt-6 text-center">
-                        <p class="text-gray-600">
-                            Already have an account? 
-                            <a href="login.html" class="font-medium text-blue-600 hover:text-blue-500">
-                                Sign in
-                            </a>
-                        </p>
+                        <a href="courses.html" class="block text-center text-blue-600 hover:text-blue-800 font-medium">
+                            <i class="fas fa-arrow-left mr-2"></i> Continue Shopping
+                        </a>
                     </div>
                 </div>
             </div>
@@ -175,6 +193,6 @@
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>
-    <script src="js/register.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>
