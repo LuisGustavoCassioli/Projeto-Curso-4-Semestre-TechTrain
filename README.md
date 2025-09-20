@@ -1,131 +1,107 @@
-# TECHTRAIN - Plataforma de Cursos Online
+# TECHTRAIN - Online Learning Platform
 
-Uma plataforma completa, dinâmica e profissional para uma empresa fictícia de cursos online chamada TECHTRAIN, inspirada em grandes plataformas como Udemy, Alura e Coursera.
+TECHTRAIN is a comprehensive online learning platform built with HTML, CSS (Tailwind), and JavaScript. This platform offers a complete learning experience with course browsing, enrollment, video lessons, testing, and certification.
 
-## Recursos
+## Features
 
-- **Design Responsivo**: Funciona em desktop, tablet e dispositivos móveis
-- **Interface Moderna**: Design limpo e profissional usando Tailwind CSS
-- **Catálogo de Cursos**: Navegue e pesquise cursos por categoria, preço e palavra-chave
-- **Carrinho de Compras**: Adicione cursos ao carrinho e finalize a compra
-- **Painel do Estudante**: Área de login com acompanhamento do progresso dos cursos
-- **Formulário de Contato**: Envie mensagens com validação
-- **Armazenamento Local**: Armazenamento persistente de dados para carrinho, informações do usuário e mensagens
+### User Management
+- User registration and login system
+- Student dashboard with personalized content
+- Profile management
 
-## Páginas
+### Course Management
+- Browse courses by category
+- Course details with descriptions and ratings
+- Add courses to cart and checkout
+- Bookmark favorite courses
 
-1. **Página Inicial** (`index.html`)
-   - Cabeçalho fixo com navegação
-   - Seção hero com chamada para ação
-   - Cursos em destaque
-   - Seção Por que escolher a TECHTRAIN
-   - Depoimentos
-   - Rodapé
+### Learning Experience
+- Video-based lessons with progress tracking
+- Interactive tests for each course
+- Certificate generation upon course completion
+- Learning notes for each video lesson
+- Study timer/Pomodoro technique
 
-2. **Página de Cursos** (`courses.html`)
-   - Catálogo completo de cursos
-   - Recursos de pesquisa e filtragem
-   - Cartões de cursos com imagens, descrições e preços
+### Progress Tracking
+- Visual progress indicators
+- Learning history
+- Statistics dashboard with detailed analytics
+- Achievements and badges system
 
-3. **Página de Detalhes do Curso** (`course.html?id=...`)
-   - Informações detalhadas do curso
-   - Currículo do curso
-   - Avaliações de estudantes
-   - Funcionalidade de adicionar ao carrinho
+### Additional Features
+- Dark mode support
+- Responsive design for all devices
+- Search functionality with Fuse.js
+- Social sharing of certificates
 
-4. **Página de Contato** (`contact.html`)
-   - Formulário de contato com validação
-   - Informações de contato
-   - Visualização do mapa
+## New Statistics Feature
 
-5. **Área do Estudante** (`student.html`)
-   - Login necessário
-   - Painel com cursos matriculados
-   - Acompanhamento do progresso
-   - Gerenciamento de perfil
+The statistics page provides detailed insights into learning progress and achievements:
 
-6. **Carrinho de Compras** (`cart.html`)
-   - Visualizar cursos adicionados
-   - Remover itens
-   - Funcionalidade de checkout
+- Summary cards showing total courses, completed courses, learning time, and certificates earned
+- Progress over time visualization
+- Course category distribution charts
+- Weekly activity tracking
+- Top courses by progress
 
-7. **Página de Login** (`login.html`)
-   - Login do estudante
-   - Credenciais de demonstração fornecidas
-
-## Tecnologias Utilizadas
-
-- **HTML5**
-- **CSS3** com Tailwind CSS
-- **JavaScript** (Vanilla JS)
-- **LocalStorage** para persistência de dados
-- **Google Fonts** (Poppins)
-- **Font Awesome** para ícones
-- **Unsplash** para imagens de alta qualidade
-
-## Estrutura de Arquivos
+## File Structure
 
 ```
-.
-├── index.html
-├── courses.html
-├── course.html
-├── contact.html
-├── student.html
-├── login.html
-├── cart.html
-├── css/
-│   └── style.css
-├── js/
-│   ├── main.js
-│   ├── courses.js
-│   ├── course.js
-│   ├── contact.js
-│   ├── login.js
-│   └── cart.js
+├── index.html              # Homepage
+├── courses.html            # Course listing
+├── course.html             # Course details
+├── student.html            # Student dashboard
+├── learning.html           # Course learning page
+├── statistics.html         # Learning statistics
+├── bookmarks.html          # Saved courses
+├── history.html            # Learning history
+├── timer.html              # Study timer
+├── contact.html            # Contact page
+├── login.html              # User login
+├── register.html           # User registration
+├── cart.html               # Shopping cart
+├── checkout.html           # Checkout process
 ├── data/
-│   └── cursos.json
-└── img/
-    └── (opcional para imagens locais)
+│   └── cursos.json         # Course data
+├── css/
+│   └── style.css           # Custom styles
+└── js/
+    ├── main.js             # Main JavaScript functions
+    ├── courses.js          # Course page functionality
+    ├── login.js            # Authentication
+    ├── register.js         # Registration
+    ├── cart.js             # Cart functionality
+    ├── checkout.js         # Checkout process
+    ├── learning.js         # Learning page functionality
+    ├── statistics.js       # Statistics page
+    ├── bookmarks.js        # Bookmarks functionality
+    ├── history.js          # Learning history
+    └── timer.js            # Study timer
 ```
 
-## Começando
+## Getting Started
 
-1. Clone ou baixe o repositório
-2. Abra `index.html` em um navegador web
-3. Navegue pelo site para explorar todos os recursos
+1. Clone the repository
+2. Open `index.html` in a web browser
+3. Register a new account or login with existing credentials
+4. Browse courses and add to cart
+5. Complete checkout process
+6. Access courses through the student dashboard
+7. View learning statistics in the Statistics section
 
-## Credenciais de Demonstração
+## Technologies Used
 
-Para a área do estudante, use as seguintes credenciais:
-- **Email**: student@example.com
-- **Senha**: password123
+- HTML5
+- CSS3 with Tailwind CSS
+- JavaScript (ES6+)
+- localStorage for data persistence
+- Chart.js for data visualization
+- Fuse.js for search functionality
 
-## Implementação dos Recursos
+## Deployment
 
-### Carrinho de Compras
-- Adicionar/remover cursos
-- Armazenamento persistente usando LocalStorage
-- Contagem do carrinho em tempo real no cabeçalho
+This is a static website that can be deployed on any web server or hosting platform that supports static files, including GitHub Pages.
 
-### Autenticação de Usuário
-- Login/logout simulado
-- Gerenciamento de perfil
-- Persistência de sessão
+## License
 
-### Gerenciamento de Cursos
-- Dados de cursos baseados em JSON
-- Pesquisa e filtragem
-- Visualizações detalhadas de cursos
-
-### Formulário de Contato
-- Validação no lado do cliente
-- Armazenamento de mensagens no LocalStorage
-
-## Implantação
-
-Este projeto está pronto para ser implantado diretamente no GitHub Pages ou em qualquer serviço de hospedagem estática.
-
-## Licença
-
-Este projeto é apenas para fins educacionais.
+This project is for educational purposes and demonstrates a complete frontend application for an online learning platform.

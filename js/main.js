@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update cart count
     updateCartCount();
+    
+    // Initialize dark mode
+    initDarkMode();
 });
 
 // Function to load featured courses
@@ -216,4 +219,80 @@ function showNotification(message, type) {
     setTimeout(() => {
         notification.remove();
     }, 3000);
+}
+
+// Function to track category exploration for achievements
+function trackCategoryExploration(category) {
+    const currentUser = JSON.parse(localStorage.getItem('techtrain_user'));
+    if (!currentUser) return;
+    
+    // Get category exploration data from localStorage
+    let categoryData = JSON.parse(localStorage.getItem('techtrain_category_exploration')) || {};
+    const userId = currentUser.id;
+    
+    // Initialize user category data if not exists
+    if (!categoryData[userId]) {
+        categoryData[userId] = [];
+    }
+    
+    // Add category if not already tracked
+    if (!categoryData[userId].includes(category)) {
+        categoryData[userId].push(category);
+        
+        // Save category exploration data
+        localStorage.setItem('techtrain_category_exploration', JSON.stringify(categoryData));
+    }
+}
+
+// Dark mode functions
+function initDarkMode() {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    
+    // Check for saved theme preference or respect OS preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    }
+    
+    // Add event listener to toggle button
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+    }
+}
+
+function toggleDarkMode() {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    
+    document.body.classList.toggle('dark-mode');
+    
+    // Update button icon
+    if (document.body.classList.contains('dark-mode')) {
+        if (darkModeToggle) {
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        localStorage.setItem('theme', 'dark');
+    } else {
+        if (darkModeToggle) {
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Helper function to get current user
+function getCurrentUser() {
+    const user = localStorage.getItem('techtrain_user');
+    return user ? JSON.parse(user) : null;
+}
+
+// Helper function to format time
+function formatTime(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${hours}h ${mins}m`;
 }

@@ -141,6 +141,9 @@ function loadCourseDetails(course) {
     if (coursePrice) coursePrice.textContent = `$${course.price}`;
     if (courseReviews) courseReviews.textContent = `${course.reviews} reviews`;
     
+    // Track category exploration
+    trackCategoryExploration(course.category);
+    
     // Generate star rating
     if (courseRating) {
         courseRating.innerHTML = '';
@@ -169,6 +172,29 @@ function loadCourseDetails(course) {
             `;
             courseLearningPoints.appendChild(li);
         });
+    }
+}
+
+// Function to track category exploration for achievements
+function trackCategoryExploration(category) {
+    const currentUser = JSON.parse(localStorage.getItem('techtrain_user'));
+    if (!currentUser) return;
+    
+    // Get category exploration data from localStorage
+    let categoryData = JSON.parse(localStorage.getItem('techtrain_category_exploration')) || {};
+    const userId = currentUser.id;
+    
+    // Initialize user category data if not exists
+    if (!categoryData[userId]) {
+        categoryData[userId] = [];
+    }
+    
+    // Add category if not already tracked
+    if (!categoryData[userId].includes(category)) {
+        categoryData[userId].push(category);
+        
+        // Save category exploration data
+        localStorage.setItem('techtrain_category_exploration', JSON.stringify(categoryData));
     }
 }
 

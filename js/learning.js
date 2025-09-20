@@ -1,5 +1,4 @@
 // Learning page JavaScript for TECHTRAIN
-
 // DOM Elements
 const videoPlayer = document.getElementById('video-player');
 const videoTitle = document.getElementById('video-title');
@@ -26,6 +25,12 @@ const closeCertificateBtn = document.getElementById('close-certificate-btn');
 const downloadCertificateBtn = document.getElementById('download-certificate-btn');
 const logoutBtn = document.getElementById('logout-btn');
 
+// New elements for notes functionality
+const notesContainer = document.getElementById('notes-container');
+const notesTextarea = document.getElementById('notes-textarea');
+const saveNotesBtn = document.getElementById('save-notes-btn');
+const clearNotesBtn = document.getElementById('clear-notes-btn');
+
 // Global variables
 let currentCourse = null;
 let currentVideoIndex = 0;
@@ -41,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
+    // Update learning streak
+    updateLearningStreak();
+    
     // Load course data
     loadCourseData();
     
@@ -55,24 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (logoutBtn) logoutBtn.addEventListener('click', logout);
     if (testForm) testForm.addEventListener('submit', submitTest);
     
+    // Set up notes event listeners
+    if (saveNotesBtn) saveNotesBtn.addEventListener('click', saveNotes);
+    if (clearNotesBtn) clearNotesBtn.addEventListener('click', clearNotes);
+    
     // Update cart count
     updateCartCount();
 });
-
-// Function to get current user from localStorage
-function getCurrentUser() {
-    const user = localStorage.getItem('techtrain_user');
-    return user ? JSON.parse(user) : null;
-}
-
-// Function to logout
-function logout() {
-    // Remove user from localStorage
-    localStorage.removeItem('techtrain_user');
-    
-    // Redirect to homepage
-    window.location.href = 'index.html';
-}
 
 // Function to load course data
 function loadCourseData() {
@@ -85,6 +82,9 @@ function loadCourseData() {
         window.location.href = 'courses.html';
         return;
     }
+    
+    // Record course start time if not already recorded
+    recordCourseStartTime(courseId);
     
     // Load course data from JSON file
     fetch('data/cursos.json')
@@ -123,6 +123,44 @@ function loadCourseData() {
         .catch(error => {
             console.error('Error loading course data:', error);
         });
+}
+
+// Function to record course start time
+function recordCourseStartTime(courseId) {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+    
+    // Get course start times from localStorage
+    let courseStartTimes = JSON.parse(localStorage.getItem('techtrain_course_start_times')) || {};
+    const userId = currentUser.id;
+    
+    // Initialize user course start times if not exists
+    if (!courseStartTimes[userId]) {
+        courseStartTimes[userId] = {};
+    }
+    
+    // Record start time if not already recorded
+    if (!courseStartTimes[userId][courseId]) {
+        courseStartTimes[userId][courseId] = new Date().toISOString();
+        
+        // Save course start times
+        localStorage.setItem('techtrain_course_start_times', JSON.stringify(courseStartTimes));
+    }
+}
+
+// Function to get current user from localStorage
+function getCurrentUser() {
+    const user = localStorage.getItem('techtrain_user');
+    return user ? JSON.parse(user) : null;
+}
+
+// Function to logout
+function logout() {
+    // Remove user from localStorage
+    localStorage.removeItem('techtrain_user');
+    
+    // Redirect to homepage
+    window.location.href = 'index.html';
 }
 
 // Function to load course progress data
@@ -198,8 +236,14 @@ function playVideo(index) {
     // Mark video as completed
     markVideoAsCompleted(video.id);
     
+    // Load notes for this video
+    loadNotes(video.id);
+    
     // Update progress
     updateProgress();
+    
+    // Update streak when watching a video
+    updateLearningStreak();
     
     // Update URL without reloading the page
     const url = new URL(window.location);
@@ -224,7 +268,41 @@ function markVideoAsCompleted(videoId) {
     if (!courseProgressData[currentCourse.id].completedVideos.includes(videoId)) {
         courseProgressData[currentCourse.id].completedVideos.push(videoId);
         saveCourseProgressData();
+        
+        // Add to learning history
+        addToLearningHistory('video', currentCourse.id, videoId);
     }
+}
+
+// Function to add to learning history
+function addToLearningHistory(type, courseId, itemId) {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+    
+    // Get learning history from localStorage
+    let learningHistory = JSON.parse(localStorage.getItem('techtrain_learning_history')) || {};
+    const userId = currentUser.id;
+    
+    // Initialize user history if not exists
+    if (!learningHistory[userId]) {
+        learningHistory[userId] = [];
+    }
+    
+    // Add new history item
+    learningHistory[userId].push({
+        type: type, // 'video' or 'course'
+        courseId: courseId,
+        itemId: itemId, // videoId or 'test'
+        timestamp: new Date().toISOString()
+    });
+    
+    // Keep only the last 50 history items
+    if (learningHistory[userId].length > 50) {
+        learningHistory[userId] = learningHistory[userId].slice(-50);
+    }
+    
+    // Save learning history
+    localStorage.setItem('techtrain_learning_history', JSON.stringify(learningHistory));
 }
 
 // Function to update progress
@@ -331,6 +409,12 @@ function submitTest(e) {
     // If score is 70% or higher, mark course as completed
     if (percentage >= 70) {
         courseProgressData[currentCourse.id].completedDate = new Date().toISOString();
+        
+        // Add to learning history
+        addToLearningHistory('course', currentCourse.id, 'test');
+        
+        // Check for quick completion achievement
+        checkQuickCompletionAchievement(currentCourse.id);
     }
     
     saveCourseProgressData();
@@ -343,6 +427,45 @@ function submitTest(e) {
     
     // Update UI
     updateProgress();
+}
+
+// Function to check for quick completion achievement
+function checkQuickCompletionAchievement(courseId) {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+    
+    // Get course start times
+    const courseStartTimes = JSON.parse(localStorage.getItem('techtrain_course_start_times')) || {};
+    const userStartTimes = courseStartTimes[currentUser.id] || {};
+    
+    // Get course completion time
+    const startTime = userStartTimes[courseId];
+    const completionTime = courseProgressData[currentCourse.id].completedDate;
+    
+    if (startTime && completionTime) {
+        const start = new Date(startTime);
+        const end = new Date(completionTime);
+        const duration = end - start; // in milliseconds
+        
+        // Check if completed in under 24 hours (86400000 milliseconds)
+        if (duration < 86400000) {
+            // Store quick completion achievement
+            let quickCompletions = JSON.parse(localStorage.getItem('techtrain_quick_completions')) || {};
+            const userId = currentUser.id;
+            
+            if (!quickCompletions[userId]) {
+                quickCompletions[userId] = [];
+            }
+            
+            // Add course to quick completions if not already there
+            if (!quickCompletions[userId].includes(courseId)) {
+                quickCompletions[userId].push(courseId);
+                
+                // Save quick completions
+                localStorage.setItem('techtrain_quick_completions', JSON.stringify(quickCompletions));
+            }
+        }
+    }
 }
 
 // Function to open certificate modal
@@ -374,9 +497,82 @@ function closeCertificateModal() {
     if (certificateModal) certificateModal.classList.add('hidden');
 }
 
+// Function to share certificate on social media
+function shareCertificate(platform) {
+    const courseProgress = courseProgressData[currentCourse.id];
+    if (!courseProgress || !courseProgress.completedDate) return;
+    
+    const currentUser = getCurrentUser();
+    const certificateText = `I just completed the ${currentCourse.title} course on TECHTRAIN with a score of ${courseProgress.testScore}%!`;
+    const certificateUrl = window.location.origin + window.location.pathname;
+    
+    switch(platform) {
+        case 'twitter':
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(certificateText)}&url=${encodeURIComponent(certificateUrl)}`;
+            window.open(twitterUrl, '_blank');
+            break;
+        case 'facebook':
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(certificateUrl)}`;
+            window.open(facebookUrl, '_blank');
+            break;
+        case 'linkedin':
+            const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(certificateUrl)}&title=${encodeURIComponent(certificateText)}`;
+            window.open(linkedinUrl, '_blank');
+            break;
+    }
+}
+
 // Function to download certificate
 function downloadCertificate() {
     alert('In a real application, this would download a PDF certificate. For this demo, we\'ll just show an alert.');
+}
+
+// Function to update learning streak
+function updateLearningStreak() {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+    
+    // Get streak data from localStorage
+    let streakData = JSON.parse(localStorage.getItem('techtrain_streaks')) || {};
+    const userId = currentUser.id;
+    
+    // Initialize user streak data if not exists
+    if (!streakData[userId]) {
+        streakData[userId] = {
+            currentStreak: 0,
+            longestStreak: 0,
+            lastLearningDate: null
+        };
+    }
+    
+    const today = new Date().toDateString();
+    const lastLearningDate = streakData[userId].lastLearningDate;
+    
+    // Check if user learned today
+    if (lastLearningDate !== today) {
+        // Check if user learned yesterday (to continue streak)
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        if (lastLearningDate === yesterday.toDateString()) {
+            // Continue streak
+            streakData[userId].currentStreak++;
+        } else {
+            // Reset streak
+            streakData[userId].currentStreak = 1;
+        }
+        
+        // Update longest streak if needed
+        if (streakData[userId].currentStreak > streakData[userId].longestStreak) {
+            streakData[userId].longestStreak = streakData[userId].currentStreak;
+        }
+        
+        // Update last learning date
+        streakData[userId].lastLearningDate = today;
+        
+        // Save streak data
+        localStorage.setItem('techtrain_streaks', JSON.stringify(streakData));
+    }
 }
 
 // Function to update cart count
@@ -386,4 +582,87 @@ function updateCartCount() {
         const cart = JSON.parse(localStorage.getItem('techtrain_cart')) || [];
         cartCountElement.textContent = cart.length;
     }
+}
+
+// Function to save notes
+function saveNotes() {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentCourse || !notesTextarea) return;
+    
+    const videoId = currentCourse.videos[currentVideoIndex].id;
+    const notes = notesTextarea.value;
+    
+    // Get notes from localStorage
+    let courseNotes = JSON.parse(localStorage.getItem('techtrain_course_notes')) || {};
+    
+    // Initialize user notes if not exists
+    if (!courseNotes[currentUser.id]) {
+        courseNotes[currentUser.id] = {};
+    }
+    
+    // Initialize course notes if not exists
+    if (!courseNotes[currentUser.id][currentCourse.id]) {
+        courseNotes[currentUser.id][currentCourse.id] = {};
+    }
+    
+    // Save notes for this video
+    courseNotes[currentUser.id][currentCourse.id][videoId] = notes;
+    
+    // Save to localStorage
+    localStorage.setItem('techtrain_course_notes', JSON.stringify(courseNotes));
+    
+    // Show notification
+    showNotification('Notes saved successfully!', 'success');
+}
+
+// Function to load notes
+function loadNotes(videoId) {
+    const currentUser = getCurrentUser();
+    if (!currentUser || !currentCourse || !notesTextarea) return;
+    
+    // Get notes from localStorage
+    const courseNotes = JSON.parse(localStorage.getItem('techtrain_course_notes')) || {};
+    
+    // Load notes for this video
+    const notes = courseNotes[currentUser.id] && 
+                  courseNotes[currentUser.id][currentCourse.id] && 
+                  courseNotes[currentUser.id][currentCourse.id][videoId] || '';
+    
+    // Set textarea value
+    if (notesTextarea) notesTextarea.value = notes;
+}
+
+// Function to clear notes
+function clearNotes() {
+    if (notesTextarea) {
+        notesTextarea.value = '';
+        saveNotes(); // Save empty notes to clear
+    }
+}
+
+// Function to show notification
+function showNotification(message, type) {
+    // Remove any existing notifications
+    const existingNotification = document.getElementById('notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.id = 'notification';
+    notification.className = `fixed top-20 right-4 px-6 py-4 rounded-lg shadow-lg z-50 ${
+        type === 'success' ? 'bg-green-500 text-white' : 
+        type === 'info' ? 'bg-blue-500 text-white' : 
+        'bg-red-500 text-white'
+    }`;
+    notification.textContent = message;
+    
+    // Add to body
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }

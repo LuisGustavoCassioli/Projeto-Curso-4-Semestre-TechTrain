@@ -29,6 +29,7 @@
                 <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
                 <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
                 <a href="student.html" class="text-blue-600 font-medium">Student Area</a>
+                <a href="statistics.html" class="text-gray-600 hover:text-blue-600 font-medium">Statistics</a>
             </nav>
             
             <!-- Buttons -->
@@ -55,6 +56,7 @@
                 <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
                 <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
                 <a href="student.html" class="text-blue-600 font-medium">Student Area</a>
+                <a href="statistics.html" class="text-gray-600 hover:text-blue-600 font-medium">Statistics</a>
             </div>
         </div>
     </header>
@@ -97,44 +99,22 @@
                             <a href="#" class="flex items-center text-blue-600 font-medium py-2 px-4 bg-blue-50 rounded-lg">
                                 <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
                             </a>
+                            <a href="statistics.html" class="flex items-center text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg">
+                                <i class="fas fa-chart-line mr-3"></i> Statistics
+                            </a>
                             <a href="#" class="flex items-center text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg">
                                 <i class="fas fa-book mr-3"></i> My Courses
                             </a>
                             <a href="#" class="flex items-center text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg">
                                 <i class="fas fa-certificate mr-3"></i> Certificates
                             </a>
-                            <a href="#" class="flex items-center text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg">
+                            <a href="history.html" class="flex items-center text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg">
                                 <i class="fas fa-history mr-3"></i> Learning History
                             </a>
                             <a href="#" class="flex items-center text-gray-600 hover:text-blue-600 py-2 px-4 rounded-lg">
                                 <i class="fas fa-user mr-3"></i> Profile Settings
                             </a>
                         </nav>
-                    </div>
-                    
-                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6">
-                        <h3 class="font-bold text-lg mb-4">Achievements</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
-                                    <i class="fas fa-award text-yellow-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">First Course Completed</h4>
-                                    <p class="text-gray-600 text-sm">JavaScript Basics</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                    <i class="fas fa-medal text-blue-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">5 Courses Enrolled</h4>
-                                    <p class="text-gray-600 text-sm">Keep going!</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 
@@ -179,6 +159,32 @@
                         </div>
                     </div>
                     
+                    <!-- Progress Chart -->
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6 mb-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800">Learning Progress</h2>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="font-semibold mb-3">Course Completion</h3>
+                                <div class="space-y-3" id="progress-chart">
+                                    <!-- Progress bars will be loaded here -->
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-semibold mb-3">Category Distribution</h3>
+                                <div class="flex items-center justify-center h-48" id="category-chart">
+                                    <div class="text-center text-gray-500">
+                                        <i class="fas fa-chart-pie text-3xl mb-2"></i>
+                                        <p>Complete courses to see category distribution</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- My Courses -->
                     <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6 mb-8">
                         <div class="flex justify-between items-center mb-6">
@@ -201,6 +207,17 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="certificates-container">
                             <!-- Certificates will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Achievements -->
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6 mb-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800">My Achievements</h2>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="achievements-container">
+                            <!-- Achievements will be loaded here -->
                         </div>
                     </div>
                     
@@ -321,20 +338,10 @@
     <!-- JavaScript -->
     <script src="js/main.js"></script>
     <script src="js/login.js"></script>
-    <script>
-        // Check if user is logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentUser = JSON.parse(localStorage.getItem('techtrain_user'));
-            
-            if (!currentUser) {
-                // Redirect to login page if not logged in
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            // Update cart count
-            updateCartCount();
-        });
-    </script>
+    
+    <!-- Dark Mode Toggle Button -->
+    <button id="dark-mode-toggle" class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
 </body>
 </html>

@@ -1,7 +1,7 @@
 // Courses page JavaScript for TECHTRAIN
 
 // Sample course data (in a real app, this would come from an API)
-const coursesData = [
+let coursesData = [
     {
         id: 1,
         title: "Complete JavaScript Course",
@@ -82,8 +82,18 @@ const searchInput = document.getElementById('search-input');
 const categoryFilter = document.getElementById('category-filter');
 const priceFilter = document.getElementById('price-filter');
 
+// Fuse.js search instance
+let fuse;
+
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Fuse.js search
+    const options = {
+        keys: ['title', 'description', 'category'],
+        threshold: 0.3
+    };
+    fuse = new Fuse(coursesData, options);
+    
     loadCourses(coursesData);
     
     // Add event listeners for filters
@@ -116,9 +126,15 @@ function loadCourses(courses) {
         return;
     }
     
+    // Get bookmarks from localStorage
+    const bookmarks = JSON.parse(localStorage.getItem('techtrain_bookmarks')) || [];
+    
     courses.forEach(course => {
         const courseCard = document.createElement('div');
         courseCard.className = 'bg-white rounded-xl shadow-md overflow-hidden course-card';
+        
+        // Check if course is bookmarked
+        const isBookmarked = bookmarks.includes(course.id);
         
         // Generate star rating
         let stars = '';
@@ -133,7 +149,13 @@ function loadCourses(courses) {
         }
         
         courseCard.innerHTML = `
-            <img src="${course.image}" alt="${course.title}" class="w-full h-48 object-cover course-image">
+            <div class="relative">
+                <img src="${course.image}" alt="${course.title}" class="w-full h-48 object-cover course-image">
+                <button class="bookmark-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white bg-opacity-80 flex items-center justify-center hover:bg-blue-100 transition-colors" 
+                        data-course-id="${course.id}" data-bookmarked="${isBookmarked}">
+                    <i class="${isBookmarked ? 'fas' : 'far'} fa-bookmark text-blue-600"></i>
+                </button>
+            </div>
             <div class="p-6">
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-xl font-bold text-gray-800">${course.title}</h3>
@@ -149,7 +171,7 @@ function loadCourses(courses) {
                 <div class="flex justify-between items-center">
                     <span class="text-gray-500"><i class="far fa-clock mr-1"></i> ${course.duration}</span>
                     <div>
-                        <a href="course.html?id=${course.id}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium transition duration-300 mr-2">
+                        <a href="course.html?id=${course.id}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium transition duration-300 mr-2" onclick="trackCategoryExploration('${course.category}')">
                             View Details
                         </a>
                     </div>
@@ -159,6 +181,38 @@ function loadCourses(courses) {
         
         coursesContainer.appendChild(courseCard);
     });
+    
+    // Add event listeners to bookmark buttons
+    document.querySelectorAll('.bookmark-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleBookmark(this);
+        });
+    });
+}
+
+// Function to toggle bookmark
+function toggleBookmark(button) {
+    const courseId = parseInt(button.dataset.courseId);
+    const isBookmarked = button.dataset.bookmarked === 'true';
+    
+    // Get bookmarks from localStorage
+    let bookmarks = JSON.parse(localStorage.getItem('techtrain_bookmarks')) || [];
+    
+    if (isBookmarked) {
+        // Remove from bookmarks
+        bookmarks = bookmarks.filter(id => id !== courseId);
+        button.dataset.bookmarked = 'false';
+        button.innerHTML = '<i class="far fa-bookmark text-blue-600"></i>';
+    } else {
+        // Add to bookmarks
+        bookmarks.push(courseId);
+        button.dataset.bookmarked = 'true';
+        button.innerHTML = '<i class="fas fa-bookmark text-blue-600"></i>';
+    }
+    
+    // Save bookmarks to localStorage
+    localStorage.setItem('techtrain_bookmarks', JSON.stringify(bookmarks));
 }
 
 // Function to filter courses
@@ -167,26 +221,34 @@ function filterCourses() {
     const category = categoryFilter ? categoryFilter.value : '';
     const priceRange = priceFilter ? priceFilter.value : '';
     
-    let filteredCourses = coursesData.filter(course => {
-        // Search filter
-        const matchesSearch = course.title.toLowerCase().includes(searchTerm) || 
-                             course.description.toLowerCase().includes(searchTerm);
-        
-        // Category filter
-        const matchesCategory = category === '' || course.category === category;
-        
-        // Price filter
-        let matchesPrice = true;
-        if (priceRange === '0-50') {
-            matchesPrice = course.price <= 50;
-        } else if (priceRange === '50-100') {
-            matchesPrice = course.price > 50 && course.price <= 100;
-        } else if (priceRange === '100+') {
-            matchesPrice = course.price > 100;
-        }
-        
-        return matchesSearch && matchesCategory && matchesPrice;
-    });
+    let filteredCourses = coursesData;
+    
+    // Apply search filter using Fuse.js if there's a search term
+    if (searchTerm) {
+        const fuseResults = fuse.search(searchTerm);
+        filteredCourses = fuseResults.map(result => result.item);
+    }
+    
+    // Apply category filter
+    if (category) {
+        filteredCourses = filteredCourses.filter(course => course.category === category);
+    }
+    
+    // Apply price filter
+    if (priceRange) {
+        filteredCourses = filteredCourses.filter(course => {
+            switch (priceRange) {
+                case '0-50':
+                    return course.price <= 50;
+                case '50-100':
+                    return course.price > 50 && course.price <= 100;
+                case '100+':
+                    return course.price > 100;
+                default:
+                    return true;
+            }
+        });
+    }
     
     loadCourses(filteredCourses);
 }

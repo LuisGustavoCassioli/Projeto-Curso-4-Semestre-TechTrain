@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Load certificates
         loadCertificates();
+        
+        // Load achievements
+        loadAchievements();
     }
 });
 
@@ -250,6 +253,54 @@ function loadEnrolledCourses() {
         
         coursesContainer.appendChild(courseCard);
     });
+    
+    // Load progress chart
+    loadProgressChart(enrolledCourses);
+}
+
+// Function to load progress chart
+function loadProgressChart(enrolledCourses) {
+    const progressChart = document.getElementById('progress-chart');
+    if (!progressChart) return;
+    
+    // Load course progress data
+    const courseProgressData = JSON.parse(localStorage.getItem('techtrain_course_progress')) || {};
+    
+    progressChart.innerHTML = '';
+    
+    enrolledCourses.forEach(course => {
+        // Get progress data for this course
+        const progressData = courseProgressData[course.id];
+        let progress = 0;
+        let isCompleted = false;
+        
+        if (progressData) {
+            // Calculate video progress
+            const totalVideos = 5; // We know each course has 5 videos
+            const completedVideos = progressData.completedVideos ? progressData.completedVideos.length : 0;
+            const videoProgress = totalVideos > 0 ? Math.round((completedVideos / totalVideos) * 100) : 0;
+            
+            // If test is taken, use test score, otherwise use video progress
+            progress = progressData.testScore !== null ? progressData.testScore : videoProgress;
+            isCompleted = progressData.completedDate !== null;
+        }
+        
+        const progressItem = document.createElement('div');
+        progressItem.className = 'mb-3';
+        progressItem.innerHTML = `
+            <div class="flex justify-between text-sm mb-1">
+                <span>${course.title}</span>
+                <span>${progress}%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: ${progress}%">
+                    ${isCompleted ? '<div class="h-2 bg-green-500 rounded-full"></div>' : ''}
+                </div>
+            </div>
+        `;
+        
+        progressChart.appendChild(progressItem);
+    });
 }
 
 // Function to load certificates
@@ -322,6 +373,157 @@ function loadCertificates() {
             </div>
         `;
     }
+}
+
+// Function to load achievements
+function loadAchievements() {
+    const achievementsContainer = document.getElementById('achievements-container');
+    if (!achievementsContainer) return;
+    
+    // Get current user
+    const currentUser = getCurrentUser();
+    
+    // Get course progress data
+    const courseProgressData = JSON.parse(localStorage.getItem('techtrain_course_progress')) || {};
+    
+    // Get streak data
+    const streakData = JSON.parse(localStorage.getItem('techtrain_streaks')) || {};
+    const userStreak = streakData[currentUser.id] || { currentStreak: 0, longestStreak: 0 };
+    
+    // Get category exploration data
+    const categoryData = JSON.parse(localStorage.getItem('techtrain_category_exploration')) || {};
+    const userCategories = categoryData[currentUser.id] || [];
+    
+    // Get quick completions data
+    const quickCompletions = JSON.parse(localStorage.getItem('techtrain_quick_completions')) || {};
+    const userQuickCompletions = quickCompletions[currentUser.id] || [];
+    
+    // Count completed courses by category
+    const completedCategories = new Set();
+    let completedCourses = 0;
+    let totalScore = 0;
+    let courseCount = 0;
+    
+    // Sample course data with categories (in a real app, this would come from an API)
+    const courseCategories = {
+        1: "programming",
+        2: "data-science",
+        3: "cybersecurity",
+        4: "design",
+        5: "programming",
+        6: "data-science"
+    };
+    
+    Object.entries(courseProgressData).forEach(([courseId, progress]) => {
+        if (progress.completedDate) {
+            completedCourses++;
+            totalScore += progress.testScore || 0;
+            courseCount++;
+            
+            // Add category to completed categories
+            if (courseCategories[courseId]) {
+                completedCategories.add(courseCategories[courseId]);
+            }
+        }
+    });
+    
+    // Calculate average score
+    const averageScore = courseCount > 0 ? Math.round(totalScore / courseCount) : 0;
+    
+    // Sample achievements data with more achievements based on user activity
+    const achievements = [
+        {
+            id: 1,
+            title: "First Course",
+            description: "Complete your first course",
+            icon: "fas fa-graduation-cap",
+            earned: completedCourses >= 1
+        },
+        {
+            id: 2,
+            title: "Quick Learner",
+            description: "Complete a course in less than a week",
+            icon: "fas fa-bolt",
+            earned: false // This would require tracking start dates
+        },
+        {
+            id: 3,
+            title: "Top Performer",
+            description: "Score 90% or higher on a test",
+            icon: "fas fa-medal",
+            earned: averageScore >= 90
+        },
+        {
+            id: 4,
+            title: "Bookworm",
+            description: "Complete 5 courses",
+            icon: "fas fa-book",
+            earned: completedCourses >= 5
+        },
+        {
+            id: 5,
+            title: "Streak Master",
+            description: "Learn for 7 consecutive days",
+            icon: "fas fa-fire",
+            earned: userStreak.currentStreak >= 7
+        },
+        {
+            id: 6,
+            title: "Polyglot",
+            description: "Complete courses in 3 different categories",
+            icon: "fas fa-language",
+            earned: completedCategories.size >= 3
+        },
+        {
+            id: 7,
+            title: "Perfectionist",
+            description: "Complete all courses with 100% scores",
+            icon: "fas fa-crown",
+            earned: averageScore === 100 && completedCourses > 0
+        },
+        {
+            id: 8,
+            title: "Explorer",
+            description: "Try courses from all categories",
+            icon: "fas fa-compass",
+            earned: userCategories.length >= 4 // Assuming 4 categories: programming, data-science, cybersecurity, design
+        },
+        {
+            id: 9,
+            title: "Early Bird",
+            description: "Complete a course in under 24 hours",
+            icon: "fas fa-sun",
+            earned: userQuickCompletions.length > 0
+        }
+    ];
+    
+    achievementsContainer.innerHTML = '';
+    
+    achievements.forEach(achievement => {
+        const achievementCard = document.createElement('div');
+        achievementCard.className = `border rounded-lg p-4 text-center ${
+            achievement.earned ? 'border-green-500 bg-green-50' : 'border-gray-200 bg-gray-50'
+        }`;
+        
+        achievementCard.innerHTML = `
+            <div class="flex justify-center mb-3">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center ${
+                    achievement.earned ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-500'
+                }">
+                    <i class="${achievement.icon}"></i>
+                </div>
+            </div>
+            <h3 class="font-bold text-lg mb-1">${achievement.title}</h3>
+            <p class="text-gray-600 text-sm mb-2">${achievement.description}</p>
+            <span class="inline-block px-2 py-1 text-xs rounded-full ${
+                achievement.earned ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'
+            }">
+                ${achievement.earned ? 'Earned' : 'Locked'}
+            </span>
+        `;
+        
+        achievementsContainer.appendChild(achievementCard);
+    });
 }
 
 // Function to simulate login (for demo purposes)

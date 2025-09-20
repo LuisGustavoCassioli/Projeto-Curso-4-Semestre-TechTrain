@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - TECHTRAIN</title>
+    <title>Study Timer - TECHTRAIN</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -13,9 +13,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="font-[Poppins] bg-gray-50">
+<body class="font-[Poppins]">
     <!-- Header -->
-    <header class="bg-white shadow-md">
+    <header class="bg-white shadow-md fixed w-full z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Logo -->
             <div class="flex items-center">
@@ -23,11 +23,12 @@
                 <h1 class="text-2xl font-bold text-blue-600">TECHTRAIN</h1>
             </div>
             
-            <!-- Navigation -->
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-8">
                 <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
                 <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
                 <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
             </nav>
             
             <!-- Buttons -->
@@ -36,64 +37,99 @@
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
                 </a>
-                <a href="login.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
-                    Login
-                </a>
+                <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
+                    Logout
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 absolute w-full shadow-lg">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 font-medium">Courses</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 font-medium">Contact</a>
+                <a href="student.html" class="text-gray-600 hover:text-blue-600 font-medium">Student Area</a>
             </div>
         </div>
     </header>
 
-    <!-- Login Section -->
-    <section class="py-20">
-        <div class="container mx-auto px-4">
-            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="p-8">
-                    <div class="text-center mb-8">
-                        <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
-                        <p class="text-gray-600">Sign in to access your student dashboard</p>
+    <!-- Timer Header -->
+    <section class="pt-32 pb-12 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Study Timer</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Boost your productivity with the Pomodoro Technique. Work for 25 minutes, then take a 5-minute break.
+            </p>
+        </div>
+    </section>
+
+    <!-- Timer Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 max-w-2xl">
+            <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-8 text-center">
+                <div class="mb-8">
+                    <h2 id="timer-mode" class="text-2xl font-bold text-gray-800 mb-2">Focus Time</h2>
+                    <div id="timer" class="text-6xl font-bold text-blue-600 my-6">25:00</div>
+                    <p id="timer-message" class="text-gray-600">Time to focus on your studies!</p>
+                </div>
+                
+                <div class="flex justify-center space-x-4 mb-8">
+                    <button id="start-btn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                        <i class="fas fa-play mr-2"></i> Start
+                    </button>
+                    <button id="pause-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 hidden">
+                        <i class="fas fa-pause mr-2"></i> Pause
+                    </button>
+                    <button id="reset-btn" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                        <i class="fas fa-redo mr-2"></i> Reset
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-4 mt-8">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="text-2xl font-bold text-blue-600" id="pomodoro-count">0</div>
+                        <div class="text-gray-600">Sessions</div>
                     </div>
-                    
-                    <form id="login-form">
-                        <div class="mb-6">
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
-                            <input type="email" id="email" name="email" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                   placeholder="you@example.com" required>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <div class="text-2xl font-bold text-green-600" id="break-count">0</div>
+                        <div class="text-gray-600">Breaks</div>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <div class="text-2xl font-bold text-purple-600" id="total-time">0m</div>
+                        <div class="text-gray-600">Studied</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6 mt-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">How It Works</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-clock text-blue-600"></i>
                         </div>
-                        
-                        <div class="mb-6">
-                            <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
-                            <input type="password" id="password" name="password" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                   placeholder="••••••••" required>
+                        <h4 class="font-semibold mb-2">25 Minutes Focus</h4>
+                        <p class="text-gray-600 text-sm">Work on your course without distractions</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-coffee text-green-600"></i>
                         </div>
-                        
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="flex items-center">
-                                <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">
-                                    Remember me
-                                </label>
-                            </div>
-                            <div class="text-sm">
-                                <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
-                                    Forgot password?
-                                </a>
-                            </div>
+                        <h4 class="font-semibold mb-2">5 Minutes Break</h4>
+                        <p class="text-gray-600 text-sm">Rest and recharge your mind</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-sync-alt text-purple-600"></i>
                         </div>
-                        
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300">
-                            Sign In
-                        </button>
-                    </form>
-                    
-                    <div class="mt-6 text-center">
-                        <p class="text-gray-600">
-                            Don't have an account? 
-                            <a href="register.html" class="font-medium text-blue-600 hover:text-blue-500">
-                                Sign up
-                            </a>
-                        </p>
+                        <h4 class="font-semibold mb-2">Repeat Cycle</h4>
+                        <p class="text-gray-600 text-sm">After 4 sessions, take a longer break</p>
                     </div>
                 </div>
             </div>
@@ -175,7 +211,7 @@
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>
-    <script src="js/login-page.js"></script>
+    <script src="js/timer.js"></script>
     
     <!-- Dark Mode Toggle Button -->
     <button id="dark-mode-toggle" class="dark-mode-toggle">
